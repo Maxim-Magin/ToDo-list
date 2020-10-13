@@ -9,24 +9,26 @@ window.onload = function () {
             let keyCode = e.keyCode || e.which;
             if (keyCode === 13) {
                 // enter pressed
-                readItem(e);
-                addItem();
+                inputValue= $("#toDoListInput").val();
+                if(inputValue != "")
+                {
+                    toDoList.push(inputValue);
+                    console.log(toDoList);
+                    e.preventDefault();
+                    addItem();
+                    $("#toDoListInput").val(null);
+                } 
+                else{
+                    e.preventDefault();
+                }
             }
         }, false);
 
-        function readItem(e) {
-            inputValue = $("#toDoListInput").val();
-            toDoList.push(inputValue);
-            console.log(toDoList);
-            e.preventDefault();
-            return false;
-        }
-
         function addItem() {
-            $("#list").append(`<li id="${liIndex}">
+            $("#list").append(`<li class="listItem" id="${liIndex}">
             <div class="row">
             <div class="row">
-            <input type="checkbox">
+            <input type="checkbox" class="check">
             <h4>${inputValue}</h4>
             </div>
             <button class="destroy"></button>
@@ -43,8 +45,13 @@ window.onload = function () {
             $(this).addClass("selected");
         });
 
-
-        $("#list :checkbox").on('click', function(){
+        $('input[type="checkbox"]').change(function() {
+            if(this.checked) {
+                $(this.li).addClass("selected");
+            }
+            else{
+                $(this.li).removeClass("selected");
+            }
         });
 
         $("#cleaner").click(function (e) {
