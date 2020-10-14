@@ -12,7 +12,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script> -->
     <script type="text/javascript" src="jquerry.js"></script>
     <link href="properties.css" rel="stylesheet">
     <title>To do list</title>
@@ -64,13 +63,13 @@
             <div id="filtersList">
                 <ul id="filters">
                     <li>
-                        <a href="#" class="selected">ALL</a>
+                        <a href="#" class="selected" id="allItems">ALL</a>
                     </li>
                     <li>
-                        <a href="#" class>ACTIVE</a>
+                        <a href="#" class id="activeItems">ACTIVE</a>
                     </li>
                     <li>
-                        <a href="#" class>COMPLITED</a>
+                        <a href="#" class id="completedItems">COMPLETED</a>
                     </li>
                 </ul>
                 <button id="cleaner">Clear</button>
