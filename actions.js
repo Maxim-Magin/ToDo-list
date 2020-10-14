@@ -41,7 +41,7 @@ window.onload = function () {
                     e.preventDefault();
                 }
             }
-        }, );
+        }, false);
 
         // if ($("#filters .selected").attr(id) == "allitems") {
         //     addItems(toDoList);
