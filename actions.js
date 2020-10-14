@@ -93,7 +93,8 @@ window.onload = function () {
                         <li class="listItem ${liClass}" id="${array[i].id}">
                             <div class="row">
                                 <div class="row">
-                                    <input type="checkbox" class="check">
+                                    <input type="checkbox" class="check" id="${array[i].id}check">
+                                    <label for="${array[i].id}check"></label>
                                     <h4>${array[i].value}</h4>
                                 </div>
                             </div>
@@ -113,7 +114,8 @@ window.onload = function () {
                         <li class="listItem ${liClass}" id="${array[i].id}">
                             <div class="row">
                                 <div class="row">
-                                    <input type="checkbox" class="check" checked>
+                                    <input type="checkbox" class="check" id="${array[i].id}check">
+                                    <label for="${array[i].id}check"></label>
                                     <h4>${array[i].value}</h4>
                                 </div>
                             </div>
@@ -121,6 +123,7 @@ window.onload = function () {
                         </li>
                     `);
                 }
+                document.querySelectorAll(".chosen .check").forEach((item) => item.checked = true);
                 liClass = "";
             }
             else {
@@ -129,7 +132,8 @@ window.onload = function () {
                     <li class="listItem ${liClass}" id="${array[i].id}">
                         <div class="row">
                             <div class="row">
-                                <input type="checkbox" class="check">
+                                <input type="checkbox" class="check" id="${array[i].id}check">
+                                <label for="${array[i].id}check"></label>
                                 <h4>${array[i].value}</h4>
                             </div>
                         </div>
