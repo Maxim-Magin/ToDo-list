@@ -7,6 +7,21 @@
   display: flex;
   justify-self: center;
  }
+ 
+.listHeader{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+ .icon{
+   width: 30px;
+   height: 30px;
+   cursor: pointer;
+   visibility: hidden;
+   position: relative;
+ }
+
 
 
  .images {
@@ -168,7 +183,8 @@
 
 #filtersList{
   display: flex;
-  flex-direction: row;
+
+  justify-content: center;
   color: #777;
   padding: 10px 15px;
   height: 20px;
@@ -182,12 +198,15 @@
   list-style-type: none;
 }
 
-#filters li a {
+#filtersList a {
   color: inherit;
+  text-decoration: none;
   margin: 5px;
   padding: 3px 7px;
-  text-decoration: none;
 }
+
+
+
 
 #filters .selected{
   border:  1px solid rgba(20, 199, 223, 0.349);;;
@@ -201,6 +220,7 @@
 #cleaner {
   margin-left: 35px;
   height: 30px;
+  visibility: hidden;
 }
 
 

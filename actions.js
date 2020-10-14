@@ -24,63 +24,69 @@ window.onload = function () {
                     e.preventDefault();
                     $('#list').empty();
                     if (document.querySelector(".selected").id == 'allItems') {
-                        addItems(toDoList, $("#filters li a .selected").attr('id'));
+                        addItems(toDoList, document.querySelector(".selected").id);
                     }
                     else if (document.querySelector(".selected").id == 'activeItems') {
                         activeItemsList = toDoList.filter(item => item.checked == false);
-                        addItems(activeItemsList, $("#filters li a .selected").attr('id'));
+                        addItems(activeItemsList, document.querySelector(".selected").id);
                     }
                     else {
                         complitedItemsList = toDoList.filter(item => item.checked == true);
-                        addItems(complitedItemsList, $("#filters li a .selected").attr('id'));
+                        addItems(complitedItemsList, document.querySelector(".selected").id);
                     }
                     liIndex++;
                     $("#toDoListInput").val(null);
+                    document.querySelector(".icon").style["visibility"] = "visible";
                 }
                 else {
                     e.preventDefault();
                 }
             }
+
         }, false);
 
-        // if ($("#filters .selected").attr(id) == "allitems") {
-        //     addItems(toDoList);
-        // }
-        // else if($("#filters .selected").attr(id) == "activeitems"){
-        //     let activeItemsList = toDoList.filter(item => item.active == false);
-        //     addItems(activeItemsList);
-        // }
-        // else{
-        //     let complitedItemsList = toDoList.filter(item => item.active == true);
-        //     addItems(complitedItemsList);
-        // }
 
         $("#filters li a").click(function (e) {
             e.preventDefault();
-            $("#filters li a").removeClass("selected");
-            $(this).addClass("selected");
-            $('#list').empty();
-            if (this.id == 'allItems') {
-                addItems(toDoList, this.id);
-            }
-            else if (this.id == 'activeItems') {
-                activeItemsList = toDoList.filter(item => item.checked == false);
-                addItems(activeItemsList, this.id);
+            if (this.id != "cleaner") {
+                $("#filters li a").removeClass("selected");
+                $(this).addClass("selected");
+                $('#list').empty();
+                if (this.id == 'allItems') {
+                    addItems(toDoList, this.id);
+                }
+                else if (this.id == 'activeItems') {
+                    activeItemsList = toDoList.filter(item => item.checked == false);
+                    addItems(activeItemsList, this.id);
+                }
+                else {
+                    complitedItemsList = toDoList.filter(item => item.checked == true);
+                    addItems(complitedItemsList, this.id);
+                }
             }
             else {
-                complitedItemsList = toDoList.filter(item => item.checked == true);
-                addItems(complitedItemsList, this.id);
+                e.preventDefault();
+                $("#list .chosen").remove();
+                toDoList = toDoList.filter(item => item.checked == false);
+                console.log(toDoList);
+                if (toDoList.length == 0) {
+                    document.querySelector(".icon").style["visibility"] = "hidden";
+                }
+                if(toDoList.filter(item => item.checked == true).length == 0){
+                    document.querySelector("#cleaner").style["visibility"] = "hidden";
+                }
             }
+
         });
 
         function addItems(array, arrayType) {
             let liClass = "";
-            if(arrayType == "allItems"){
+            if (arrayType == "allItems") {
                 for (let i = 0; i < array.length; ++i) {
-                    if(array[i].checked){
+                    if (array[i].checked) {
                         liClass = "chosen";
                     }
-                    else{
+                    else {
                         liClass = "";
                     }
                     $("#list").append(`
@@ -94,11 +100,13 @@ window.onload = function () {
                             <hr>
                         </li>
                     `);
-                    
+
                 }
+                document.querySelectorAll(".chosen .check").forEach((item) => item.checked = true);
                 liClass = "";
+
             }
-            else if (arrayType =="completedItems"){
+            else if (arrayType == "completedItems") {
                 liClass = "chosen";
                 for (let i = 0; i < array.length; ++i) {
                     $("#list").append(`
@@ -115,9 +123,9 @@ window.onload = function () {
                 }
                 liClass = "";
             }
-           else{
-            for (let i = 0; i < array.length; ++i) {
-                $("#list").append(`
+            else {
+                for (let i = 0; i < array.length; ++i) {
+                    $("#list").append(`
                     <li class="listItem ${liClass}" id="${array[i].id}">
                         <div class="row">
                             <div class="row">
@@ -128,11 +136,11 @@ window.onload = function () {
                         <hr>
                     </li>
                 `);
-                if(array[i].checked == true){
-                    document.querySelector('#list > li:last-child').checked = true;
+                    if (array[i].checked == true) {
+                        document.querySelector('#list > li:last-child').checked = true;
+                    }
                 }
             }
-           }
         }
 
         $('#list').on('change', '.check', (ev) => {
@@ -142,21 +150,29 @@ window.onload = function () {
                 $target.closest('.listItem').addClass("chosen");
                 let selectedID = $target.closest('.listItem').attr('id');
                 toDoList.find(item => item.id == selectedID).checked = true;
+
+                document.querySelector("#cleaner").style["visibility"] = "visible";
             }
             else {
                 $target.closest('.listItem').removeClass("chosen");
                 let selectedID = $target.closest('.listItem').attr('id');
                 toDoList.find(item => item.id == selectedID).checked = false;
+                if(toDoList.filter(item => item.checked == true).length == 0){
+                    document.querySelector("#cleaner").style["visibility"] = "hidden";
+                }
             }
             console.log(ev.currentTarget.checked);
 
         })
 
-        $("#cleaner").on('click', function (e) {
+        $(".icon").click(function (e) {
             e.preventDefault();
-            $("#list .chosen").remove();
-            toDoList = toDoList.filter(item => item.checked == false)
-            console.log(toDoList);
+            toDoList.forEach((item) => {
+                item.checked = true;
+            })
+            $("#list").empty();
+            addItems(toDoList, document.querySelector(".selected").id)
+            document.querySelector("#cleaner").style["visibility"] = "visible";
         })
 
     });

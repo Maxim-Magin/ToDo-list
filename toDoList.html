@@ -57,7 +57,10 @@
                 <h1>TO DO LIST</h1>
             </div>
             <form id="form">
-                <input id="toDoListInput" type="text" placeholder="what needs to be done?">
+                <div class="listHeader">
+                    <img class="icon" src="./Images/arrow.png">
+                    <input id="toDoListInput" type="text" placeholder="What needs to be done?">
+                </div>
                 <ul id="list"></ul>
             </form>
             <div id="filtersList">
@@ -71,8 +74,11 @@
                     <li>
                         <a href="#" class id="completedItems">COMPLETED</a>
                     </li>
+                    <li>
+                        <a href="#" id="cleaner">CLEAR</a>
+                    </li>
                 </ul>
-                <button id="cleaner">Clear</button>
+                
             </div>
         </section>
 
